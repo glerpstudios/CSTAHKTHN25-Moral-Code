@@ -1,0 +1,83 @@
+:root {
+    --accent: #00eeff;
+}
+
+@font-face {
+    font-family: Gorb;
+    src: url(Pixel\ Georgia\ Bold.ttf);
+}
+
+@font-face {
+    font-family: SpaceMono;
+    src: url(SpaceMono-Regular.ttf);
+}
+
+@font-face {
+    font-family: Op;
+    src: url(DigitalDisco.ttf);
+}
+
+@font-face {
+    font-family: OpTn;
+    src: url(DigitalDisco-Thin.ttf);
+}
+@font-face {
+    font-family: Gorg;
+    src: url(Pixel\ Georgia.ttf);
+}
+
+body {
+    overflow: auto;
+}
+
+h1 {
+    font-family: Op;
+    font-size: 60px;
+    margin: auto;
+    text-align: center;
+    color:var(--accent);
+}
+
+h2 {
+    font-family: OpTn;
+    font-size: 35px;
+    margin: auto;
+    text-align: center;
+    color:var(--accent);
+}
+
+p {
+    font-family: Gorg;
+    font-size: 20px;
+}
+
+div {
+    margin: none;
+}
+
+strong {
+    color:var(--accent);
+    font-family: Gorg;
+    font-weight: bolder;
+}
+
+progress {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    max-height: 100vh;
+}
+
+.verticont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1mimic {
+    font-family: Op;
+    font-size: 60px;
+    margin: auto;
+    text-align: center;
+    color:var(--accent);
+}

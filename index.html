@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="script" href="script.js">
+    </head>
+<body onload="typeWriter()">
+  <progress id="progressbar" value="0" max="100"></progress>
+
+<div class="verticont" style="background-color: black; height:400px; padding: 0 10vw">
+  <span id="typewriter" class="h1mimic">
+  </span>
+</div>
+
+<div style="display: flex; padding: 0 10vw; height: fit-content; background-color: black;">
+  <div style="margin: 0; width: 45vw; float: left;">
+    <h2>
+      "Whatever Shall I Do?!"
+    </h2>
+    <p style="color: white;">
+      ..exclaims the paranoid average joe.
+    </p>
+    <br/>
+    <p style="color: white;">
+      AI, or <strong>artificial intelligence</strong>, has effectively been the defining 
+      subject of tech in the emerging decade. Strides in computer science have created wonders and mysteries 
+      beyond the comprehension of our curiously itchy brains.
+    </p>
+    <br/>
+    <p style="color: white;">
+      Never failing to liken AI algorithms to humans, and continually dreaming of bequeathing consciousness to 
+      these curios of linear algebra, AI researchers inevitably encounter the problem of <strong>how humans can ethically
+        interact with AI</strong>.
+    </p>
+    <br/>
+    <p style="color: white;">
+      AI researchers are not alone in that regard, however. <strong>Observe</strong> these extremely probable, yet intriguing 
+      questions uttered by the common man about AI.
+    </p>
+  </div>
+  <div style="margin: 0; width: 45vw; float: left;">
+    <h2>
+      Ongu
+    </h2>
+    <p style="color: white;">
+
+    </p>
+  </div>
+</div>
+
+<script>
+var i = 0;
+var txt = 'It is an inarguable assertion that we are in an AI age.';
+var speed = 50;
+
+var cursor = document.createElement("img");
+cursor.setAttribute("src", "cursor.gif");
+cursor.setAttribute("style", "height: 45px;");
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("typewriter").innerHTML = txt.substring(0, i + 1);
+    document.getElementById("typewriter").appendChild(cursor);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+</script>
+
+</body>
+</html>
