@@ -36,6 +36,7 @@ h1 {
     margin: auto;
     text-align: center;
     color:var(--accent);
+    font-weight:100;
 }
 
 h2 {

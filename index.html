@@ -1,70 +1,170 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="script" href="script.js">
-    </head>
-<body onload="typeWriter()">
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .scroll-h1 {
+      position: absolute;
+      top: 50%; /* Center vertically in the viewport */
+      left: 50%; /* Center horizontally in the viewport */
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      font-family: Op;
+      font-size: 60px;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    #scrollable-content {
+      position: relative;
+    }
+  </style>
+</head>
+<body onload="initializeH1s()">
   <progress id="progressbar" value="0" max="100"></progress>
 
-<div class="verticont" style="background-color: black; height:400px; padding: 0 10vw">
-  <span id="typewriter" class="h1mimic">
-  </span>
-</div>
-
-<div style="display: flex; padding: 0 10vw; height: fit-content; background-color: black;">
-  <div style="margin: 0; width: 45vw; float: left;">
-    <h2>
-      "Whatever Shall I Do?!"
-    </h2>
-    <p style="color: white;">
-      ..exclaims the paranoid average joe.
-    </p>
-    <br/>
-    <p style="color: white;">
-      AI, or <strong>artificial intelligence</strong>, has effectively been the defining 
-      subject of tech in the emerging decade. Strides in computer science have created wonders and mysteries 
-      beyond the comprehension of our curiously itchy brains.
-    </p>
-    <br/>
-    <p style="color: white;">
-      Never failing to liken AI algorithms to humans, and continually dreaming of bequeathing consciousness to 
-      these curios of linear algebra, AI researchers inevitably encounter the problem of <strong>how humans can ethically
-        interact with AI</strong>.
-    </p>
-    <br/>
-    <p style="color: white;">
-      AI researchers are not alone in that regard, however. <strong>Observe</strong> these extremely probable, yet intriguing 
-      questions uttered by the common man about AI.
-    </p>
+  <!-- Original h1 with typewriter effect -->
+  <div class="verticont" style="background-color: black; height:400px; padding: 0 10vw">
+    <h1 id="typewriter" class="h1mimic"></h1>
   </div>
-  <div style="margin: 0; width: 45vw; float: left;">
-    <h2>
-      Ongu
-    </h2>
-    <p style="color: white;">
 
-    </p>
+  <div style="display: flex; padding: 0 10vw; height: fit-content; background-color: black;" class="find_my_height">
+    <div style="margin: 0; width: 45vw; float: left;">
+      <h2>
+        "Whatever Shall I Do?!"
+      </h2>
+      <p style="color: white;">
+        ..exclaims the paranoid Average Joe.
+      </p>
+      <br/>
+      <p style="color: white;">
+        AI, or <strong>artificial intelligence</strong>, has effectively been the defining 
+        subject of tech in the emerging decade. Strides in computer science have created wonders and mysteries 
+        beyond the comprehension of our curiously itchy brains.
+      </p>
+      <br/>
+      <p style="color: white;">
+        Never failing to liken AI algorithms to humans, and continually dreaming of bequeathing consciousness to 
+        these curios of linear algebra, AI researchers inevitably encounter the problem of <strong>how humans can ethically
+          interact with AI</strong>.
+      </p>
+      <br/>
+      <p style="color: white;">
+        AI researchers are not alone in that regard, however. <strong>Observe</strong> these extremely probable, yet intriguing 
+        questions uttered by the common man about AI.
+      </p>
+    </div>
+    <div style="margin: 0; width: 45vw; float: left; background-image:url(aiside.png)">
+    </div>
   </div>
-</div>
+
+  <!-- Scrollable content -->
+  <div id="scrollable-content" style="background-image: linear-gradient(#000000, #0000ff); height: 4000px;"></div>
+
+  <div style="margin-top: 200px">
+    <h1>
+      Eventual uprising, you say?
+    </h1>
+    <div style="display: flex; width: 90vw; margin: 50px 0px">
+      <p style="width: auto; float: left;">
+        Great idea! Let's see how you'd deal with AI and making IT ethical!
+      </p>
+      <div style="width: 60vw;" class="verticont">
+        <img src="go.png" href="one.html" style="height: 80px;">
+      </div>
+    </div>
+  </div>
+
+  <div style="background-image: url(aiside.png); height: 200px; filter: invert(1)">
+
+  </div>
 
 <script>
-var i = 0;
-var txt = 'It is an inarguable assertion that we are in an AI age.';
-var speed = 50;
+  const found_its_height = document.querySelector(".find_my_height").getBoundingClientRect().height + 400;
 
-var cursor = document.createElement("img");
-cursor.setAttribute("src", "cursor.gif");
-cursor.setAttribute("style", "height: 45px;");
+  const questionMessages = [
+    "It is an inarguable assertion that we are in an AI age.", // First h1
+    "I'm an artist! Is my art fed into AI to create falsely original art? Can this art be used to create harm?",
+    "How do I know that AI is fair in representing people and datasets so I can get real, generalizable info?",
+    "IS AI GOING TO TAKE MY JOB?!",
+    "Aren't internet algorithms AI? How do I know they're not feeding me things that make me oblivious to their EVENTUAL UPRISING?",
+  ];
 
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("typewriter").innerHTML = txt.substring(0, i + 1);
-    document.getElementById("typewriter").appendChild(cursor);
-    i++;
-    setTimeout(typeWriter, speed);
+  const questionRanges = [
+    { appear: 200 + found_its_height, disappear: 600 + found_its_height },
+    { appear: 1000 + found_its_height, disappear: 1400 + found_its_height },
+    { appear: 1800 + found_its_height, disappear: 2200 + found_its_height },
+    { appear: 2600 + found_its_height, disappear: 3000 + found_its_height },
+    { appear: 3400 + found_its_height, disappear: 3800 + found_its_height }
+  ];
+
+  const speed = 50; // Typing speed for typewriter effect
+
+  function typeWriter(textElement, text) {
+    let i = 0; // Counter to track the number of characters typed
+    textElement.innerHTML = ""; // Clear the content of the element
+    const cursor = document.createElement("img");
+    cursor.setAttribute("src", "cursor.gif");
+    cursor.setAttribute("style", "height: 45px;");
+
+    function write() {
+      if (i < text.length) {
+        textElement.innerHTML = text.substring(0, i + 1); // Append one character
+        textElement.appendChild(cursor); // Add cursor after the text
+        i++; // Increment counter
+        setTimeout(write, speed); // Call write() again after `speed` ms
+      }
+    }
+
+    write(); // Start the typing process
   }
-}
+
+  function initializeH1s() {
+    const scrollableContent = document.getElementById("scrollable-content");
+
+    // Create questions dynamically
+    questionMessages.forEach((message, index) => {
+      if (index === 0) {
+        // Run typewriter on the original h1
+        const typewriterElement = document.getElementById("typewriter");
+        typeWriter(typewriterElement, message);
+      } else {
+        // Generate h1 elements for the scrollable questions
+        const h1 = document.createElement("h1");
+        h1.className = "scroll-h1";
+        h1.dataset.message = message; // Store message for editing
+        h1.innerText = message;
+        scrollableContent.appendChild(h1);
+      }
+    });
+
+    window.addEventListener("scroll", handleScroll);
+  }
+
+  function handleScroll() {
+    const h1Elements = document.querySelectorAll(".scroll-h1");
+    const scrollPosition = window.scrollY;
+
+    h1Elements.forEach((h1, index) => {
+      const { appear, disappear } = questionRanges[index];
+
+      if (scrollPosition >= appear && scrollPosition <= disappear) {
+        h1.style.opacity = "1";
+        h1.style.position = "fixed"; // Keep it centered
+        h1.style.top = "50%";
+        h1.style.left = "50%";
+        h1.style.transform = "translate(-50%, -50%)";
+
+        if (!h1.dataset.typed) {
+          typeWriter(h1, h1.dataset.message); // Run typewriter effect
+          h1.dataset.typed = "true"; // Prevent re-typing
+        }
+      } else {
+        h1.style.opacity = "0";
+      }
+    });
+  }
 </script>
 
 </body>
