@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div style="background-color: black; height: min(40vw, 200px);" class="verticont">
+        <h1>
+            <p style="color: white;">
+                Section 1
+            </p>
+            [Intrigues of Infringement]
+        </h1>
+
+    </div>
+    <div style="display: flex;">
+        <div style="width: 33vw; float: left; overflow-y: scroll; height: calc(90vh - min(40vw, 200px)); padding: 20px 2vw 2vh 2vh;">
+            <h2>
+                Important!
+            </h2>
+            <p>
+                Reading info goes here.
+            </p>
+            <br/>
+            <p>
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+                The accursed lorem ipsum dolor sit amet. Consectetur adipiscing elit. 
+
+            </p>
+        </div>
+        <div style="width: 67vw; padding: 20px 2vw 2vh 2vh;">
+            <h2>
+                Interactive!
+            </h2>
+            <div style="height: calc((90vh - min(40vw, 200px)) * 0.8 - 75px)">
+                <p>
+                    Game goes here.
+                </p>
+            </div>
+            <hr>
+            <div class="verticont">
+                <a href="two.html">
+                    <img src="next.png" style="height: calc((90vh - min(40vw, 200px)) * 0.2 - 40px);">
+                </a>
+                <p style="padding-left: 20px;">
+                    NEXT PAGE
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    <div class="dynamic-pattern">
+
+    </div>
+    <script>
+        function updateGradientPattern() {
+            const div = document.querySelector('.dynamic-pattern');
+            const divHeight = div.offsetHeight; // Get the height of the div
+            const divWidth = div.offsetWidth; // Get the width of the div
+            const numLayers = Math.floor(divHeight / 17.32) + 1; // Calculate the number of layers
+
+            const gradientParts = [];
+            const positions = [];
+
+            // Get the height of the viewport in pixels
+            const viewportHeightPx = window.innerHeight;
+
+            // Convert the div's height to viewport units (vh)
+            const divHeightVh = Math.floor((divHeight / viewportHeightPx) * 100);
+
+            // Build gradient layers dynamically based on div height
+            for (let i = 1; i <= numLayers; i++) {
+                const size = i; // Circle size grows by 1px per layer
+                gradientParts.push(`radial-gradient(circle, #00eeff ${size}px, transparent ${size + 1}px)`);
+
+                // Alternate rows for triangular pattern horizontally and vertically
+                const offsetX = i % 2 === 0 ? 10 : 0; // 10px shift for even rows
+                const offsetY = divHeightVh * 4 + 17.32 * (i - 1); // Vertical spacing between rows
+                positions.push(`${offsetX}px ${offsetY}px`);
+            }
+
+            // Apply the styles
+            div.style.backgroundImage = gradientParts.join(',');
+            div.style.backgroundSize = '20px ' + (17.32 * numLayers) + 'px'; // Repeat horizontally and vertically
+            div.style.backgroundPosition = positions.join(',');
+            div.style.backgroundRepeat = 'repeat'; // Ensure it fills the entire width and height
+        }
+
+        // Call the function on load and resize
+        updateGradientPattern();
+        window.addEventListener('resize', updateGradientPattern);
+
+    </script>
+</body>
+
+</html>

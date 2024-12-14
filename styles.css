@@ -1,5 +1,7 @@
 :root {
     --accent: #00eeff;
+    --accent2: #0000ff;
+    --accent3: #0099ff;
 }
 
 @font-face {
@@ -26,8 +28,24 @@
     src: url(Pixel\ Georgia.ttf);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
-    overflow: auto;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -44,7 +62,7 @@ h2 {
     font-size: 35px;
     margin: auto;
     text-align: center;
-    color:var(--accent);
+    color:var(--accent3);
 }
 
 p {
@@ -62,11 +80,8 @@ strong {
     font-weight: bolder;
 }
 
-progress {
-    position: fixed;
-    bottom: 0;
-    width: 100vw;
-    max-height: 100vh;
+hr {
+    color: var(--accent);
 }
 
 .verticont {
@@ -81,4 +96,18 @@ progress {
     margin: auto;
     text-align: center;
     color:var(--accent);
+}
+
+.dynamic-pattern {
+    width: 100%;
+    height: 10vh; /* Example height, can be any value */
+    background-color: #000000;
+    position: relative;
+}
+
+#diveverything {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
 }

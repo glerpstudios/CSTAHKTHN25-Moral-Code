@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body onload="typeWriter()">
+    <div style="background-color: black; min-height: 100vh; padding: 0; margin: 0;" class="verticont">
+        <div>
+            <p style="color: white; margin: auto; text-align: center;">
+                Conclusion
+            </p>
+            <h1 style="margin: auto;" id="typewriter">  
+            </h1>
+            <br/>
+            <p style="color: white; margin: auto; text-align: center;">
+                Knowing <strong>a little bit about</strong> how to morally interact with AI, and how AI can ethically interact with us, 
+                you are <strong>just that much more </strong> prepared for our technological future.
+            </p>
+            <br/>
+            <p style="color: white; margin: auto; text-align: center;">
+                Take 
+            </p>
+        </div>
+
+
+    </div>
+
+    <script>
+        var i = 0;
+        var txt = "You're now an informed citizen.";
+        var speed = 50;
+
+        var cursor = document.createElement("img");
+        cursor.setAttribute("src", "cursor.gif");
+        cursor.setAttribute("style", "height: 45px;");
+
+        function typeWriter() {
+            if (i < txt.length) {
+                document.getElementById("typewriter").innerHTML = txt.substring(0, i + 1);
+                document.getElementById("typewriter").appendChild(cursor);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+    </script>
+</body>
+
+</html>
