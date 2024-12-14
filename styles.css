@@ -23,6 +23,7 @@
     font-family: OpTn;
     src: url(DigitalDisco-Thin.ttf);
 }
+
 @font-face {
     font-family: Gorg;
     src: url(Pixel\ Georgia.ttf);
@@ -51,18 +52,18 @@ html {
 h1 {
     font-family: Op;
     font-size: 60px;
-    margin: auto;
-    text-align: center;
-    color:var(--accent);
-    font-weight:100;
+    margin: 0; /* Ensure no margin */
+    text-align: center; /* Remove text alignment to prevent conflict */
+    color: var(--accent);
+    font-weight: 100;
 }
 
 h2 {
     font-family: OpTn;
     font-size: 35px;
-    margin: auto;
+    margin: 0;
     text-align: center;
-    color:var(--accent3);
+    color: var(--accent3);
 }
 
 p {
@@ -71,11 +72,11 @@ p {
 }
 
 div {
-    margin: none;
+    margin: 0;
 }
 
 strong {
-    color:var(--accent);
+    color: var(--accent);
     font-family: Gorg;
     font-weight: bolder;
 }
@@ -85,7 +86,7 @@ hr {
 }
 
 .verticont {
-    display: flex;
+    display: flex; /* Use block layout instead of flex */
     align-items: center;
     justify-content: center;
 }
@@ -93,9 +94,9 @@ hr {
 .h1mimic {
     font-family: Op;
     font-size: 60px;
-    margin: auto;
-    text-align: center;
-    color:var(--accent);
+    margin: 0; /* Ensure no margin */
+    text-align: left; /* Prevent text centering interference */
+    color: var(--accent);
 }
 
 .dynamic-pattern {

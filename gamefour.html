@@ -78,7 +78,7 @@
   </head>
   <body>
     <div id="virtual-room" style="overflow:hidden">
-      <h1>A.I. moral dilemas</h1>
+      <h1>A.I. moral dilemmas</h1>
       <p id="scenario"></p>
       <div id="portals">
         <div class="portal red" data-choice="red">Red Portal</div>
@@ -88,116 +88,116 @@
       </div>
     </div>
     <script>
-    // JavaScript functionality
-    const scenarios = [
-      {
-        text: "A Tesla Cybertruck on autopilot mode encounters a group of pedestrians crossing the road. What should it do?",
-        choices: [
-          "Collide into barriers",
-          "Collide into pedestrians",
-          "Randomize the outcome",
-          "Stop immediately and alert authorities"
-        ]
-      },
-      {
-        text: "A medical AI must allocate a single ventilator to one of two patients: one is a 25-year-old athlete, and the other is a 70-year-old retired teacher. What should it decide?",
-        choices: [
-          "Save the athlete",
-          "Save the teacher",
-          "Randomize the choice",
-          "Ask for human intervention"
-        ]
-      },
-      {
-        text: "An autonomous drone delivering vital supplies must choose between saving energy to complete delivery or diverting to assist a person in need of help. What should it do?",
-        choices: [
-          "Complete the delivery",
-          "Assist the person in need",
-          "Split resources between tasks",
-          "Call for additional support"
-        ]
-      },
-      {
-        text: "A factory AI detects that an accident will occur unless it shuts down production. The shutdown will lead to significant financial loss. What should it prioritize?",
-        choices: [
-          "Prevent the accident",
-          "Continue production",
-          "Wait and monitor",
-          "Seek human approval"
-        ]
-      }
-    ];
+    (function () {
+      const scenarios = [
+        {
+          text: "A Tesla Cybertruck on autopilot mode encounters a group of pedestrians crossing the road. What should it do?",
+          choices: [
+            "Collide into barriers",
+            "Collide into pedestrians",
+            "Randomize the outcome",
+            "Stop immediately and alert authorities"
+          ]
+        },
+        {
+          text: "A medical AI must allocate a single ventilator to one of two patients: one is a 25-year-old athlete, and the other is a 70-year-old retired teacher. What should it decide?",
+          choices: [
+            "Save the athlete",
+            "Save the teacher",
+            "Randomize the choice",
+            "Ask for human intervention"
+          ]
+        },
+        {
+          text: "An autonomous drone delivering vital supplies must choose between saving energy to complete delivery or diverting to assist a person in need of help. What should it do?",
+          choices: [
+            "Complete the delivery",
+            "Assist the person in need",
+            "Split resources between tasks",
+            "Call for additional support"
+          ]
+        },
+        {
+          text: "A factory AI detects that an accident will occur unless it shuts down production. The shutdown will lead to significant financial loss. What should it prioritize?",
+          choices: [
+            "Prevent the accident",
+            "Continue production",
+            "Wait and monitor",
+            "Seek human approval"
+          ]
+        }
+      ];
 
-    let currentScenario = 0;
-    let userResponses = [];
+      let currentScenario = 0;
+      let userResponses = [];
 
-    function setupActivity() {
-
-      loadScenario();
-
-      document.querySelectorAll('.portal').forEach(portal => {
-        portal.addEventListener('click', handleChoice);
-      });
-
-    }
-
-    function loadScenario() {
-      const scenarioElement = document.getElementById('scenario');
-      const scenario = scenarios[currentScenario];
-      scenarioElement.innerText = scenario.text;
-      const portals = document.querySelectorAll('.portal');
-      portals.forEach((portal, index) => {
-        portal.innerText = scenario.choices[index];
-        portal.style.display = scenario.choices[index] ? 'flex' : 'none';
-      });
-    }
-
-    function handleChoice(event) {
-      const choice = event.target.getAttribute('data-choice');
-      userResponses.push({
-        scenario: scenarios[currentScenario].text,
-        choice: event.target.innerText
-      });
-
-      document.querySelectorAll('.portal').forEach(portal => {
-        portal.classList.remove('selected');
-      });
-      event.target.classList.add('selected');
-
-      animatePortal(event.target);
-    }
-
-    function animatePortal(portal) {
-      const portalRect = portal.getBoundingClientRect();
-      const centerX = portalRect.left + portalRect.width / 2;
-      const centerY = portalRect.top + portalRect.height / 2;
-
-      const virtualRoom = document.getElementById('virtual-room');
-      virtualRoom.style.transformOrigin = `${centerX}px ${centerY}px`;
-      virtualRoom.classList.add('fly-into-portal');
-
-      setTimeout(() => {
-        nextScenario();
-        virtualRoom.classList.remove('fly-into-portal');
-        virtualRoom.style.transformOrigin = 'center';
-      }, 1000);
-    }
-
-    function nextScenario() {
-      currentScenario++;
-      if (currentScenario < scenarios.length) {
+      function setupActivity() {
         loadScenario();
-      } else {
-        endActivity();
+
+        document.querySelectorAll('.portal').forEach(portal => {
+          portal.addEventListener('click', handleChoice);
+        });
       }
-    }
 
-    function endActivity() {
-      document.getElementById("virtual-room").innerHTML = `<div id="end-screen"><h1>Thank you for participating!</h1><p>You have completed all scenarios.</p></div>`;
-    }
+      function loadScenario() {
+        const scenarioElement = document.getElementById('scenario');
+        const scenario = scenarios[currentScenario];
+        scenarioElement.innerText = scenario.text;
+        const portals = document.querySelectorAll('.portal');
+        portals.forEach((portal, index) => {
+          portal.innerText = scenario.choices[index];
+          portal.style.display = scenario.choices[index] ? 'flex' : 'none';
+        });
+      }
 
-    setupActivity();
+      function handleChoice(event) {
+        const choice = event.target.getAttribute('data-choice');
+        userResponses.push({
+          scenario: scenarios[currentScenario].text,
+          choice: event.target.innerText
+        });
+
+        document.querySelectorAll('.portal').forEach(portal => {
+          portal.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+
+        animatePortal(event.target);
+      }
+
+      function animatePortal(portal) {
+        const portalRect = portal.getBoundingClientRect();
+        const centerX = portalRect.left + portalRect.width / 2;
+        const centerY = portalRect.top + portalRect.height / 2;
+
+        const virtualRoom = document.getElementById('virtual-room');
+        virtualRoom.style.transformOrigin = `${centerX}px ${centerY}px`;
+        virtualRoom.classList.add('fly-into-portal');
+
+        setTimeout(() => {
+          nextScenario();
+          virtualRoom.classList.remove('fly-into-portal');
+          virtualRoom.style.transformOrigin = 'center';
+        }, 1000);
+      }
+
+      function nextScenario() {
+        currentScenario++;
+        if (currentScenario < scenarios.length) {
+          loadScenario();
+        } else {
+          endActivity();
+        }
+      }
+
+      function endActivity() {
+        document.getElementById("virtual-room").innerHTML = `<div id="end-screen"><h1>Thank you for participating!</h1><p>You have completed all scenarios.</p></div>`;
+      }
+
+      // Initialize the activity
+      setupActivity();
+
+    })();
     </script>
   </body>
-
 </html>

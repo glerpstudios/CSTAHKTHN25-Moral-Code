@@ -88,59 +88,68 @@
     <p id="results"></p>
 
     <script>
-    const jobs = {
-        affectedByAI: ["Truck Driver", "Data Scientist", "Software Engineer", "Artist", "Teacher"],
-        notAffectedByAI: [ "Construction Worker", "Ship Worker"]
-    };
+    (function () {
+      const jobs = {
+          affectedByAI: ["Truck Driver", "Data Scientist", "Software Engineer", "Artist", "Teacher"],
+          notAffectedByAI: [ "Construction Worker", "Ship Worker"]
+      };
 
-    function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
+      function drag(ev) {
+          ev.dataTransfer.setData("text", ev.target.id);
+      }
 
-    function allowDrop(ev) {
-        ev.preventDefault();
-    }
+      function allowDrop(ev) {
+          ev.preventDefault();
+      }
 
-    function drop(ev, category) {
-        ev.preventDefault();
-        const jobId = ev.dataTransfer.getData("text");
-        const jobElement = document.getElementById(jobId);
+      function drop(ev, category) {
+          ev.preventDefault();
+          const jobId = ev.dataTransfer.getData("text");
+          const jobElement = document.getElementById(jobId);
 
-        if (ev.target && ev.target.classList.contains("category") && !ev.target.contains(jobElement)) {
-            ev.target.appendChild(jobElement);
-            jobElement.setAttribute("draggable", "false");
-        }
-    }
+          if (ev.target && ev.target.classList.contains("category") && !ev.target.contains(jobElement)) {
+              ev.target.appendChild(jobElement);
+              jobElement.setAttribute("draggable", "false");
+          }
+      }
 
-    function checkResults() {
-        const aiJobs = Array.from(document.getElementById("affectedByAI").children).map(item => item.innerText);
-        const nonAiJobs = Array.from(document.getElementById("notAffectedByAI").children).map(item => item.innerText);
+      function checkResults() {
+          const aiJobs = Array.from(document.getElementById("affectedByAI").children).map(item => item.innerText);
+          const nonAiJobs = Array.from(document.getElementById("notAffectedByAI").children).map(item => item.innerText);
 
-        let score = 0;
+          let score = 0;
 
-        jobs.affectedByAI.forEach(job => {
-            if (aiJobs.includes(job)) score++;
-        });
-        jobs.notAffectedByAI.forEach(job => {
-            if (nonAiJobs.includes(job)) score++;
-        });
+          jobs.affectedByAI.forEach(job => {
+              if (aiJobs.includes(job)) score++;
+          });
+          jobs.notAffectedByAI.forEach(job => {
+              if (nonAiJobs.includes(job)) score++;
+          });
 
-        document.getElementById("results").innerHTML = (`You got ${score}/7 correct!`);
-    }
+          document.getElementById("results").innerHTML = (`You got ${score}/7 correct!`);
+      }
 
-    function removeJob(ev) {
-    const jobElement = ev.target;
-    const parentCategory = jobElement.parentElement;
+      function removeJob(ev) {
+          const jobElement = ev.target;
+          const parentCategory = jobElement.parentElement;
 
-    if (parentCategory.id === "affectedByAI" || parentCategory.id === "notAffectedByAI") {
-        parentCategory.removeChild(jobElement);
+          if (parentCategory.id === "affectedByAI" || parentCategory.id === "notAffectedByAI") {
+              parentCategory.removeChild(jobElement);
 
-        const originalJobsContainer = document.querySelector(".jobs");
-        originalJobsContainer.appendChild(jobElement);
-        jobElement.setAttribute("draggable", "true");
-        jobElement.removeAttribute("onclick");
-    }
-}
+              const originalJobsContainer = document.querySelector(".jobs");
+              originalJobsContainer.appendChild(jobElement);
+              jobElement.setAttribute("draggable", "true");
+              jobElement.removeAttribute("onclick");
+          }
+      }
+
+      // Exposing necessary functions to the global scope
+      window.drag = drag;
+      window.allowDrop = allowDrop;
+      window.drop = drop;
+      window.checkResults = checkResults;
+      window.removeJob = removeJob;
+    })();
     </script>
   </body>
 </html>
