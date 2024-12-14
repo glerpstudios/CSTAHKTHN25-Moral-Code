@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <title>got me on the decline</title>
+    <style>
+    #game {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    #drag-zone {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .draggable {
+      margin: 0 10px;
+      cursor: grab;
+      text-align: center;
+      transition: transform 0.2s ease;
+      background-color: rgb(186,186,186);
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .draggable > img {
+      width: 75px;
+    }
+
+    .draggable.shake {
+      animation: shake 0.5s;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+    }
+    .drop-zone {
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      width: 200px;
+      min-height: 150px;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .drop-zone h2 {
+      margin: 0 0 10px 0;
+    }
+    .drop-zone.hover {
+      background-color: #f0f0f0;
+    }
+  `
+    </style>
+  </head>
+  <body>
+    <div id="game">
+      <h1>Image Matching Game</h1>
+      <p>Determine which images are safe to train on.</p>
+
+      <div id="drag-zone">
+        <div class="draggable" draggable="true" data-category="copyrighted">
+          <img src="images/image1.webp" alt="Image 1">
+          <p>Image 1 - Published on a personal blog.</p>
+        </div>
+        <div class="draggable" draggable="true" data-category="non-copyrighted">
+          <img src="images/image2.webp" alt="Image 2">
+          <p>Image 2 -  Released into the public domain.</p>
+        </div>
+        <div class="draggable" draggable="true" data-category="copyrighted">
+          <img src="images/image3.webp" alt="Image 3">
+          <p>Image 3 - Released on a photographer's blog.</p>
+        </div>
+        <div class="draggable" draggable="true" data-category="non-copyrighted">
+          <img src="images/image4.webp" alt="Image 4">
+          <p>Image 4 - Published under Creative Commons w/o BY.</p>
+        </div>
+      </div>
+
+      <div id="drop-zones">
+        <div class="drop-zone" data-category="copyrighted">
+          <h2>Copyrighted</h2>
+        </div>
+        <div class="drop-zone" data-category="non-copyrighted">
+          <h2>Non-Copyrighted</h2>
+        </div>
+      </div>
+    </div>
+<script>
+const draggables = document.querySelectorAll(".draggable");
+const dropZones = document.querySelectorAll(".drop-zone");
+
+draggables.forEach((draggable) => {
+  draggable.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", draggable.dataset.category);
+    e.target.classList.add("dragging");
+  });
+
+  draggable.addEventListener("dragend", (e) => {
+    e.target.classList.remove("dragging");
+  });
+});
+
+function checkCompletion() {
+  const remainingItems = document.querySelectorAll(".draggable").length;
+  if (remainingItems === 0) {
+
+  }
+}
+
+dropZones.forEach((zone) => {
+  zone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    zone.classList.add("hover");
+  });
+
+  zone.addEventListener("dragleave", () => {
+    zone.classList.remove("hover");
+  });
+
+  zone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    zone.classList.remove("hover");
+
+    const category = e.dataTransfer.getData("text/plain");
+    const dropCategory = zone.dataset.category;
+    const draggingElement = document.querySelector(".dragging");
+
+    if (category === dropCategory) {
+      zone.appendChild(draggingElement);
+      checkCompletion();
+    } else {
+      draggingElement.classList.add("shake");
+      setTimeout(() => {
+        draggingElement.classList.remove("shake");
+      }, 500);
+    }
+  });
+});
+
+</script>
+</body>
+</html>

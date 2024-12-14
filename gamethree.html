@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <title>pop out</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #4CAF50;
+    }
+
+    .game-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+
+    .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .category {
+        padding: 10px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        width: 200px;
+        min-height: 200px;
+    }
+
+    .job {
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>AI Job Sorting Game</h1>
+    <p>Drag and drop the jobs into the correct categories.</p>
+
+    <div class="game-container">
+        <div class="categories">
+            <div class="category" id="affectedByAI" ondrop="drop(event, 'affectedByAI')" ondragover="allowDrop(event)">
+                <h2>Jobs Affected by AI</h2>
+                <div class="category-container" id="aiCategory"></div>
+            </div>
+            <div class="category" id="notAffectedByAI" ondrop="drop(event, 'notAffectedByAI')" ondragover="allowDrop(event)">
+                <h2>Jobs Not Affected by AI</h2>
+                <div class="category-container" id="nonAI"></div>
+            </div>
+        </div>
+
+        <div class="jobs">
+          <div class="job" id="job1" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Truck Driver</div>
+          <div class="job" id="job2" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Data Scientist</div>
+          <div class="job" id="job3" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Artist</div>
+          <div class="job" id="job4" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Teacher</div>
+          <div class="job" id="job5" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Software Engineer</div>
+          <div class="job" id="job6" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Construction Worker</div>
+          <div class="job" id="job7" draggable="true" ondragstart="drag(event)" onclick="removeJob(event)">Ship Worker</div>
+        </div>
+    </div>
+
+    <button onclick="checkResults()">Check Results</button>
+    <p id="results"></p>
+
+    <script>
+    const jobs = {
+        affectedByAI: ["Truck Driver", "Data Scientist", "Software Engineer", "Artist", "Teacher"],
+        notAffectedByAI: [ "Construction Worker", "Ship Worker"]
+    };
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drop(ev, category) {
+        ev.preventDefault();
+        const jobId = ev.dataTransfer.getData("text");
+        const jobElement = document.getElementById(jobId);
+
+        if (ev.target && ev.target.classList.contains("category") && !ev.target.contains(jobElement)) {
+            ev.target.appendChild(jobElement);
+            jobElement.setAttribute("draggable", "false");
+        }
+    }
+
+    function checkResults() {
+        const aiJobs = Array.from(document.getElementById("affectedByAI").children).map(item => item.innerText);
+        const nonAiJobs = Array.from(document.getElementById("notAffectedByAI").children).map(item => item.innerText);
+
+        let score = 0;
+
+        jobs.affectedByAI.forEach(job => {
+            if (aiJobs.includes(job)) score++;
+        });
+        jobs.notAffectedByAI.forEach(job => {
+            if (nonAiJobs.includes(job)) score++;
+        });
+
+        document.getElementById("results").innerHTML = (`You got ${score}/7 correct!`);
+    }
+
+    function removeJob(ev) {
+    const jobElement = ev.target;
+    const parentCategory = jobElement.parentElement;
+
+    if (parentCategory.id === "affectedByAI" || parentCategory.id === "notAffectedByAI") {
+        parentCategory.removeChild(jobElement);
+
+        const originalJobsContainer = document.querySelector(".jobs");
+        originalJobsContainer.appendChild(jobElement);
+        jobElement.setAttribute("draggable", "true");
+        jobElement.removeAttribute("onclick");
+    }
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>got me on the decline</title>
+  </head>
+  <body>
+    <div id="activity" style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; text-align: center;">
+      <h1 style="color: #333;">Bias Detection Activity</h1>
+      <p id="statement" style="font-size: 1.2em; color: #555;"></p>
+      <div style="margin: 20px;">
+        <button id="biasedButton" style="padding: 10px 20px; margin: 5px; background-color: #ff6961; color: white; border: none; border-radius: 5px; cursor: pointer;">Biased</button>
+        <button id="unbiasedButton" style="padding: 10px 20px; margin: 5px; background-color: #77dd77; color: white; border: none; border-radius: 5px; cursor: pointer;">Unbiased</button>
+      </div>
+      <p id="feedback" style="font-size: 1.1em; font-weight: bold; color: #333;"></p>
+    </div>
+    <script>
+
+      // JavaScript code
+      const statements = [
+        { text: "All teenagers are lazy and unmotivated.", isBiased: true },
+        { text: "Dogs are loyal animals.", isBiased: false },
+        { text: "People from City X are terrible drivers.", isBiased: true },
+        { text: "Apples are a healthy snack option.", isBiased: false },
+        { text: "Everyone who disagrees with me is wrong.", isBiased: true },
+      ];
+
+      let currentIndex = 0;
+
+      const statementElement = document.getElementById("statement");
+      const feedbackElement = document.getElementById("feedback");
+      const biasedButton = document.getElementById("biasedButton");
+      const unbiasedButton = document.getElementById("unbiasedButton");
+
+      function showStatement() {
+        if (currentIndex < statements.length) {
+          statementElement.textContent = statements[currentIndex].text;
+          feedbackElement.textContent = "";
+        } else {
+          
+        }
+      }
+
+      function checkAnswer(isBiased) {
+        if (currentIndex < statements.length) {
+          if (statements[currentIndex].isBiased === isBiased) {
+            feedbackElement.textContent = "Correct!";
+            currentIndex++;
+            setTimeout(showStatement, 1000);
+          } else {
+            feedbackElement.textContent = "Incorrect. Restarting...";
+            setTimeout(() => {
+              currentIndex = 0;
+              showStatement();
+            }, 1500);
+          }
+        }
+      }
+
+      biasedButton.addEventListener("click", () => checkAnswer(true));
+      unbiasedButton.addEventListener("click", () => checkAnswer(false));
+
+      // Initialize the activity
+      showStatement();
+    </script>
+  </body>
+</html>
