@@ -4,20 +4,20 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .scroll-h1 {
-      position: absolute;
-      top: 50%; /* Center vertically in the viewport */
-      left: 50%; /* Center horizontally in the viewport */
+      position: fixed; /* Fixed to the viewport */
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
-      font-family: Op;
+      font-family: 'Op', sans-serif;
       font-size: 60px;
       text-align: center;
       color: var(--accent);
     }
 
     #scrollable-content {
-      position: relative;
+      height: 4000px; /* To make sure the page is scrollable */
     }
   </style>
 </head>
@@ -82,92 +82,86 @@
   </div>
   
 
-<script>
-  const found_its_height = document.querySelector(".find_my_height").getBoundingClientRect().height + 400;
+  <script>
+    document.addEventListener("DOMContentLoaded", initializeH1s);
 
-  const questionMessages = [
-    "It is an inarguable assertion that we are in an AI age.", // First h1
-    "I'm an artist! Is my art fed into AI to create falsely original art? Can this art be used to create harm?",
-    "How do I know that AI is fair in representing people and datasets so I can get real, generalizable info?",
-    "IS AI GOING TO TAKE MY JOB?!",
-    "Aren't internet algorithms AI? How do I know they're not feeding me things that make me oblivious to their EVENTUAL UPRISING?",
-  ];
+    const questionMessages = [
+      "It is an inarguable assertion that we are in an AI age.", // First h1
+      "I'm an artist! Is my art fed into AI to create falsely original art? Can this art be used to create harm?",
+      "How do I know that AI is fair in representing people and datasets so I can get real, generalizable info?",
+      "IS AI GOING TO TAKE MY JOB?!",
+      "Aren't internet algorithms AI? How do I know they're not feeding me things that make me oblivious to their EVENTUAL UPRISING?"
+    ];
 
-  const questionRanges = [
-    { appear: 200 + found_its_height, disappear: 600 + found_its_height },
-    { appear: 1000 + found_its_height, disappear: 1400 + found_its_height },
-    { appear: 1800 + found_its_height, disappear: 2200 + found_its_height },
-    { appear: 2600 + found_its_height, disappear: 3000 + found_its_height },
-    { appear: 3400 + found_its_height, disappear: 3800 + found_its_height }
-  ];
+    const questionRanges = [
+      { appear: 200, disappear: 600 },
+      { appear: 1000, disappear: 1400 },
+      { appear: 1800, disappear: 2200 },
+      { appear: 2600, disappear: 3000 },
+      { appear: 3400, disappear: 3800 }
+    ];
 
-  const speed = 50; // Typing speed for typewriter effect
+    const speed = 50; // Typing speed for typewriter effect
 
-  function typeWriter(textElement, text) {
-    let i = 0; // Counter to track the number of characters typed
-    textElement.innerHTML = ""; // Clear the content of the element
-    const cursor = document.createElement("img");
-    cursor.setAttribute("src", "cursor.gif");
-    cursor.setAttribute("style", "height: 45px;");
+    function typeWriter(textElement, text) {
+      let i = 0;
+      textElement.innerHTML = "";
+      const cursor = document.createElement("img");
+      cursor.setAttribute("src", "cursor.gif");
+      cursor.setAttribute("style", "height: 45px;");
 
-    function write() {
-      if (i < text.length) {
-        textElement.innerHTML = text.substring(0, i + 1); // Append one character
-        textElement.appendChild(cursor); // Add cursor after the text
-        i++; // Increment counter
-        setTimeout(write, speed); // Call write() again after `speed` ms
+      function write() {
+        if (i < text.length) {
+          textElement.innerHTML = text.substring(0, i + 1);
+          textElement.appendChild(cursor);
+          i++;
+          setTimeout(write, speed);
+        }
       }
+      write();
     }
 
-    write(); // Start the typing process
-  }
+    function initializeH1s() {
+      const scrollableContent = document.getElementById("scrollable-content");
 
-  function initializeH1s() {
-    const scrollableContent = document.getElementById("scrollable-content");
-
-    // Create questions dynamically
-    questionMessages.forEach((message, index) => {
-      if (index === 0) {
-        // Run typewriter on the original h1
-        const typewriterElement = document.getElementById("typewriter");
-        typeWriter(typewriterElement, message);
-      } else {
-        // Generate h1 elements for the scrollable questions
-        const h1 = document.createElement("h1");
-        h1.className = "scroll-h1";
-        h1.dataset.message = message; // Store message for editing
-        h1.innerText = message;
-        scrollableContent.appendChild(h1);
-      }
-    });
-
-    window.addEventListener("scroll", handleScroll);
-  }
-
-  function handleScroll() {
-    const h1Elements = document.querySelectorAll(".scroll-h1");
-    const scrollPosition = window.scrollY;
-
-    h1Elements.forEach((h1, index) => {
-      const { appear, disappear } = questionRanges[index];
-
-      if (scrollPosition >= appear && scrollPosition <= disappear) {
-        h1.style.opacity = "1";
-        h1.style.position = "fixed"; // Keep it centered
-        h1.style.top = "50%";
-        h1.style.left = "50%";
-        h1.style.transform = "translate(-50%, -50%)";
-
-        if (!h1.dataset.typed) {
-          typeWriter(h1, h1.dataset.message); // Run typewriter effect
-          h1.dataset.typed = "true"; // Prevent re-typing
+      // Create questions dynamically
+      questionMessages.forEach((message, index) => {
+        if (index === 0) {
+          // Run typewriter on the original h1
+          const typewriterElement = document.getElementById("typewriter");
+          typeWriter(typewriterElement, message);
+        } else {
+          // Generate h1 elements for the scrollable questions
+          const h1 = document.createElement("h1");
+          h1.className = "scroll-h1";
+          h1.dataset.message = message;
+          h1.innerText = message;
+          scrollableContent.appendChild(h1);
         }
-      } else {
-        h1.style.opacity = "0";
-      }
-    });
-  }
-</script>
+      });
+
+      window.addEventListener("scroll", handleScroll);
+    }
+
+    function handleScroll() {
+      const h1Elements = document.querySelectorAll(".scroll-h1");
+      const scrollPosition = window.scrollY;
+
+      h1Elements.forEach((h1, index) => {
+        const { appear, disappear } = questionRanges[index];
+
+        if (scrollPosition >= appear && scrollPosition <= disappear) {
+          h1.style.opacity = "1";
+          if (!h1.dataset.typed) {
+            typeWriter(h1, h1.dataset.message);
+            h1.dataset.typed = "true";
+          }
+        } else {
+          h1.style.opacity = "0";
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
